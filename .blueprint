@@ -1,0 +1,112 @@
+created:
+    - app/Http/Controllers/OwnerController.php
+    - app/Http/Controllers/StudentController.php
+    - app/Http/Controllers/PropertyController.php
+    - app/Http/Controllers/LocationController.php
+    - app/Http/Controllers/LabelController.php
+    - app/Http/Controllers/OrderController.php
+    - app/Http/Controllers/ImageController.php
+    - app/Http/Controllers/GalleryController.php
+    - app/Http/Controllers/PropertyLabelController.php
+    - database/factories/StudentFactory.php
+    - database/factories/OwnerFactory.php
+    - database/factories/PropertyFactory.php
+    - database/factories/LocationFactory.php
+    - database/factories/LabelFactory.php
+    - database/factories/OrderFactory.php
+    - database/factories/ImageFactory.php
+    - database/factories/GalleryFactory.php
+    - database/factories/PropertyLabelFactory.php
+    - database/migrations/2020_10_05_152418_create_students_table.php
+    - database/migrations/2020_10_05_152419_create_owners_table.php
+    - database/migrations/2020_10_05_152420_create_properties_table.php
+    - database/migrations/2020_10_05_152421_create_locations_table.php
+    - database/migrations/2020_10_05_152422_create_labels_table.php
+    - database/migrations/2020_10_05_152423_create_orders_table.php
+    - database/migrations/2020_10_05_152424_create_images_table.php
+    - database/migrations/2020_10_05_152425_create_galleries_table.php
+    - database/migrations/2020_10_05_152426_create_property_labels_table.php
+    - app/Student.php
+    - app/Owner.php
+    - app/Property.php
+    - app/Location.php
+    - app/Label.php
+    - app/Order.php
+    - app/Image.php
+    - app/Gallery.php
+    - app/PropertyLabel.php
+    - tests/Feature/Http/Controllers/OwnerControllerTest.php
+    - tests/Feature/Http/Controllers/StudentControllerTest.php
+    - tests/Feature/Http/Controllers/PropertyControllerTest.php
+    - tests/Feature/Http/Controllers/LocationControllerTest.php
+    - tests/Feature/Http/Controllers/LabelControllerTest.php
+    - tests/Feature/Http/Controllers/OrderControllerTest.php
+    - tests/Feature/Http/Controllers/ImageControllerTest.php
+    - tests/Feature/Http/Controllers/GalleryControllerTest.php
+    - tests/Feature/Http/Controllers/PropertyLabelControllerTest.php
+    - app/Http/Requests/OwnerStoreRequest.php
+    - app/Http/Requests/OwnerUpdateRequest.php
+    - app/Http/Requests/StudentStoreRequest.php
+    - app/Http/Requests/StudentUpdateRequest.php
+    - app/Http/Requests/PropertyStoreRequest.php
+    - app/Http/Requests/PropertyUpdateRequest.php
+    - app/Http/Requests/LocationStoreRequest.php
+    - app/Http/Requests/LocationUpdateRequest.php
+    - app/Http/Requests/LabelStoreRequest.php
+    - app/Http/Requests/LabelUpdateRequest.php
+    - app/Http/Requests/OrderStoreRequest.php
+    - app/Http/Requests/OrderUpdateRequest.php
+    - app/Http/Requests/ImageStoreRequest.php
+    - app/Http/Requests/ImageUpdateRequest.php
+    - app/Http/Requests/GalleryStoreRequest.php
+    - app/Http/Requests/GalleryUpdateRequest.php
+    - app/Http/Requests/PropertyLabelStoreRequest.php
+    - app/Http/Requests/PropertyLabelUpdateRequest.php
+    - resources/views/owner/index.blade.php
+    - resources/views/owner/create.blade.php
+    - resources/views/owner/show.blade.php
+    - resources/views/owner/edit.blade.php
+    - resources/views/student/index.blade.php
+    - resources/views/student/create.blade.php
+    - resources/views/student/show.blade.php
+    - resources/views/student/edit.blade.php
+    - resources/views/property/index.blade.php
+    - resources/views/property/create.blade.php
+    - resources/views/property/show.blade.php
+    - resources/views/property/edit.blade.php
+    - resources/views/location/index.blade.php
+    - resources/views/location/create.blade.php
+    - resources/views/location/show.blade.php
+    - resources/views/location/edit.blade.php
+    - resources/views/label/index.blade.php
+    - resources/views/label/create.blade.php
+    - resources/views/label/show.blade.php
+    - resources/views/label/edit.blade.php
+    - resources/views/order/index.blade.php
+    - resources/views/order/create.blade.php
+    - resources/views/order/show.blade.php
+    - resources/views/order/edit.blade.php
+    - resources/views/image/index.blade.php
+    - resources/views/image/create.blade.php
+    - resources/views/image/show.blade.php
+    - resources/views/image/edit.blade.php
+    - resources/views/gallery/index.blade.php
+    - resources/views/gallery/create.blade.php
+    - resources/views/gallery/show.blade.php
+    - resources/views/gallery/edit.blade.php
+    - resources/views/propertyLabel/index.blade.php
+    - resources/views/propertyLabel/create.blade.php
+    - resources/views/propertyLabel/show.blade.php
+    - resources/views/propertyLabel/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    Student: { user_id: 'id foreign', firstname: 'string:200', surname: 'string:200', idnumber: 'string:15', phone: 'string:12', image: longtext, timestamps: false }
+    Owner: { user_id: 'id foreign', firstname: 'string:200', surname: 'string:200', address: 'string:250', image: 'string:200', timestamps: false, relationships: { hasMany: Property } }
+    Property: { owner_id: 'id foreign', location_id: 'id foreign', description: 'string:600', rental_fee: 'double:8,2', rental_deposit: 'double:8,2', rental_negotiable: 'enum:yes,no', rooms: integer, beds: integer, accommodation_type: 'string:200', relationships: { belongsTo: 'Location, Owner' } }
+    Location: { order: integer, title: 'string:200', timestamps: false, relationships: { hasMany: Property, belongsTo: 'Location, Owner' } }
+    Label: { name: 'string:200', value: 'string:200', icon: 'string:200', timestamps: false }
+    Order: { property_id: 'id foreign', status: 'enum:pending,successful,failed', relationships: { belongsTo: Property } }
+    Image: { user_id: 'id foreign', filename: 'string:200', type: 'string:5', relationships: { belongsTo: Gallery } }
+    Gallery: { image_id: id, property_id: id, main: 'string:200', relationships: { hasMany: Image, belongsTo: Property } }
+    PropertyLabel: { label_id: id, property_id: id }
